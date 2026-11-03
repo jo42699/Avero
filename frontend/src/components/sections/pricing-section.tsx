@@ -1,0 +1,15 @@
+"use client";
+
+import { Check, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+
+const plans = [
+  { name: "Wanderer", description: "For the next trip, and the one after that.", monthly: 0, annual: 0, features: ["Passport signal checks", "Destination explorer", "Save 3 places"] },
+  { name: "Wayfinder", description: "For people who keep a bag half-packed.", monthly: 8, annual: 6, features: ["Everything in Wanderer", "Unlimited trip boards", "Live change signals", "Priority support"], featured: true },
+];
+
+export function PricingSection() {
+  const [annual, setAnnual] = useState(true);
+  return <section id="pricing" className="border-y border-white/[0.07] bg-[#0c0e12] py-24 sm:py-32"><div className="section-wrap"><div className="flex flex-col justify-between gap-7 md:flex-row md:items-end"><div><p className="eyebrow">07 / choose your pace</p><h2 className="section-title mt-5 font-medium">Good travel<br /><span className="text-[#a793ff]">should feel accessible.</span></h2></div><div className="flex items-center gap-3"><span className={`text-[15px] ${annual ? "text-[#777b85]" : "text-white"}`}>Monthly</span><button onClick={() => setAnnual((value) => !value)} className={`relative h-7 w-12 rounded-full border p-1 transition ${annual ? "border-[#a793ff]/40 bg-[#a793ff]/20" : "border-white/15 bg-white/10"}`} aria-label="Toggle annual billing"><span className={`block h-5 w-5 rounded-full bg-[#f5f4ff] transition-transform ${annual ? "translate-x-5" : "translate-x-0"}`} /></button><span className={`text-[15px] ${annual ? "text-white" : "text-[#777b85]"}`}>Yearly <span className="text-[#a793ff]">−25%</span></span></div></div><div className="mt-12 grid gap-5 md:grid-cols-2">{plans.map((plan) => <div key={plan.name} className={`relative rounded-2xl border p-8 ${plan.featured ? "border-[#a793ff]/35 bg-gradient-to-br from-[#a793ff]/12 to-[#15151d]" : "border-white/10 bg-white/[0.025]"}`}>{plan.featured && <div className="absolute right-6 top-6 flex items-center gap-1 rounded-full border border-[#a793ff]/25 bg-[#a793ff]/10 px-2.5 py-1 text-xs text-[#c1b7ff]"><Sparkles size={12} /> Most loved</div>}<p className="text-[21px] font-medium">{plan.name}</p><p className="mt-3 max-w-[300px] text-[16px] leading-6 text-[#7f838e]">{plan.description}</p><div className="mt-8 flex items-baseline gap-1"><span className="text-5xl font-medium tracking-[-.07em]">£{annual ? plan.annual : plan.monthly}</span><span className="text-[15px] text-[#777b85]">/ month</span></div><Button variant={plan.featured ? "primary" : "secondary"} className="mt-8 w-full">{plan.featured ? "Start finding your way" : "Start for free"}</Button><div className="mt-8 space-y-3 border-t border-white/8 pt-6">{plan.features.map((feature) => <div key={feature} className="flex items-center gap-2 text-[15px] text-[#a4a6b0]"><Check size={15} className={plan.featured ? "text-[#a793ff]" : "text-[#82c89e]"} />{feature}</div>)}</div></div>)}</div></div></section>;
+}
