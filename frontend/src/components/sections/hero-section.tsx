@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import { ArrowDown, ArrowUpRight, Play, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -42,7 +41,7 @@ export function HeroSection() {
           <div className="mt-14 flex items-center gap-3 text-[15px] leading-6 text-[#6f737e]"><div className="flex -space-x-2"><span className="grid h-7 w-7 place-items-center rounded-full border-2 border-[#090a0d] bg-[#cfb9a3] text-[10px]">JM</span><span className="grid h-7 w-7 place-items-center rounded-full border-2 border-[#090a0d] bg-[#7d9ca8] text-[10px]">AK</span><span className="grid h-7 w-7 place-items-center rounded-full border-2 border-[#090a0d] bg-[#c1a4c5] text-[10px]">RL</span></div><span><strong className="font-medium text-[#c3c4ca]">12,000+</strong> curious travellers already moving</span></div>
         </motion.div>
         <motion.div initial={{ opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .9, delay: .15 }} className="relative min-h-[520px] lg:min-h-[600px]">
-          <div className="absolute left-1/2 top-1/2 z-0 h-[430px] w-[430px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full border border-white/10 bg-[radial-gradient(circle_at_34%_24%,rgba(255,228,183,.14),transparent_38%),#091522] shadow-[0_28px_90px_rgba(0,0,0,.42),inset_0_0_80px_rgba(113,145,172,.12)] sm:h-[530px] sm:w-[530px]"><Image src="/images/hero-earth.png" alt="Dimensional Earth showing the Atlantic, the Americas, Europe, Africa and Asia" width={900} height={900} priority className="h-full w-full object-contain" /><FlightPaths /></div>
+          <div className="absolute left-1/2 top-1/2 z-0 h-[430px] w-[430px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-transparent sm:h-[530px] sm:w-[530px]"><video src="/media/globe_planes_color_trails-reversed.mp4" autoPlay loop muted playsInline preload="auto" poster="/images/hero-earth.png" aria-label="Animated globe with planes and colorful flight trails" className="h-full w-full scale-[1.18] object-contain mix-blend-screen" /></div>
           <div className="absolute right-0 top-5 hidden w-52 rounded-2xl border border-white/10 bg-[#171921]/80 p-4 shadow-2xl backdrop-blur-xl sm:block" aria-live="polite">
             <div className="flex items-center justify-between text-[10px] text-[#717580]"><span>YOUR NEXT MOVE</span><span className="h-1.5 w-1.5 rounded-full bg-[#85cfaa] shadow-[0_0_8px_#85cfaa]" /></div>
             <AnimatePresence mode="wait" initial={false}><motion.div key={nextMove.city} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: .35 }}><div className="mt-4 flex items-center gap-2"><span className="text-xl">{nextMove.flag}</span><span className="text-sm font-medium">{nextMove.city}, {nextMove.country}</span></div><div className="mt-3 flex items-center justify-between border-t border-white/8 pt-3 text-[10px] text-[#858892]"><span>{nextMove.visa}</span><span className="text-[#bcb4ff]">{nextMove.stay}</span></div></motion.div></AnimatePresence>
@@ -58,24 +57,4 @@ export function HeroSection() {
       <a href="#globe" className="absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 items-center gap-2 text-[10px] uppercase tracking-[.2em] text-[#646873] transition hover:text-white md:flex">Scroll to explore <ArrowDown size={13} /></a>
     </section>
   );
-}
-
-function FlightPaths() {
-  return <svg viewBox="0 0 500 500" aria-hidden="true" className="pointer-events-none absolute inset-0 z-10 h-full w-full overflow-visible">
-    <defs>
-      <filter id="flight-trail-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5" result="blur" /><feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
-    </defs>
-    <motion.path d="M28 284 C106 92 332 54 476 218" fill="none" stroke="#6be7ff" strokeLinecap="round" strokeWidth="1.5" strokeDasharray="4 11" filter="url(#flight-trail-glow)" animate={{ strokeDashoffset: [0, -90] }} transition={{ duration: 4.8, repeat: Infinity, ease: "linear" }} />
-    <motion.path d="M46 351 C156 452 365 432 464 238" fill="none" stroke="#c9a6ff" strokeLinecap="round" strokeWidth="1.3" strokeDasharray="3 12" filter="url(#flight-trail-glow)" animate={{ strokeDashoffset: [0, -75] }} transition={{ duration: 5.6, repeat: Infinity, ease: "linear", delay: 1.2 }} />
-    <motion.path d="M76 138 C191 230 304 240 432 137" fill="none" stroke="#ffcb75" strokeLinecap="round" strokeWidth="1" strokeDasharray="2 14" opacity=".8" filter="url(#flight-trail-glow)" animate={{ strokeDashoffset: [0, -70] }} transition={{ duration: 6.4, repeat: Infinity, ease: "linear", delay: 2 }} />
-    <motion.g animate={{ x: [28, 106, 332, 476], y: [284, 92, 54, 218], rotate: [-25, -12, 18, 37] }} transition={{ duration: 4.8, repeat: Infinity, ease: "linear" }}>
-      <path d="M-8 0 L9 -4 L5 0 L9 4 Z" fill="#dffaff" stroke="#6be7ff" strokeWidth="1" />
-    </motion.g>
-    <motion.g animate={{ x: [46, 156, 365, 464], y: [351, 452, 432, 238], rotate: [40, 28, -10, -48] }} transition={{ duration: 5.6, repeat: Infinity, ease: "linear", delay: 1.2 }}>
-      <path d="M-8 0 L9 -4 L5 0 L9 4 Z" fill="#f6edff" stroke="#c9a6ff" strokeWidth="1" />
-    </motion.g>
-    <motion.g animate={{ x: [76, 191, 304, 432], y: [138, 230, 240, 137], rotate: [26, 6, -12, -32] }} transition={{ duration: 6.4, repeat: Infinity, ease: "linear", delay: 2 }}>
-      <path d="M-7 0 L8 -3.5 L4 0 L8 3.5 Z" fill="#fff7df" stroke="#ffcb75" strokeWidth="1" />
-    </motion.g>
-  </svg>;
 }
